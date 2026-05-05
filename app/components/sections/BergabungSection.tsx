@@ -20,40 +20,35 @@ export default function BergabungSection() {
   const [talentForm, setTalentForm] = useState({ full_name: "", email: "", role: "", portfolio_url: "" });
   const [projectForm, setProjectForm] = useState({ full_name: "", email: "", project_idea: "", category: "productivity" });
 
-  const handleNewsletterSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (endpoint: string, body: Record<string, string>) => {
     setFormState({ loading: true, success: false, error: "" });
     try {
-      await new Promise((r) => setTimeout(r, 1000)); // Simulate API call
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || "Terjadi kesalahan");
       setFormState({ loading: false, success: true, error: "" });
-      setNewsletterEmail("");
-    } catch {
-      setFormState({ loading: false, success: false, error: "Terjadi kesalahan. Coba lagi." });
+    } catch (err) {
+      setFormState({ loading: false, success: false, error: err instanceof Error ? err.message : "Terjadi kesalahan" });
     }
   };
 
-  const handleTalentSubmit = async (e: React.FormEvent) => {
+  const handleNewsletterSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormState({ loading: true, success: false, error: "" });
-    try {
-      await new Promise((r) => setTimeout(r, 1000));
-      setFormState({ loading: false, success: true, error: "" });
-      setTalentForm({ full_name: "", email: "", role: "", portfolio_url: "" });
-    } catch {
-      setFormState({ loading: false, success: false, error: "Terjadi kesalahan. Coba lagi." });
-    }
+    handleSubmit("/api/subscribe", { email: newsletterEmail, source: "newsletter" });
   };
 
-  const handleProjectSubmit = async (e: React.FormEvent) => {
+  const handleTalentSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setFormState({ loading: true, success: false, error: "" });
-    try {
-      await new Promise((r) => setTimeout(r, 1000));
-      setFormState({ loading: false, success: true, error: "" });
-      setProjectForm({ full_name: "", email: "", project_idea: "", category: "productivity" });
-    } catch {
-      setFormState({ loading: false, success: false, error: "Terjadi kesalahan. Coba lagi." });
-    }
+    handleSubmit("/api/talent", talentForm);
+  };
+
+  const handleProjectSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    handleSubmit("/api/project", projectForm);
   };
 
   const inputClass = "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500/50 focus:bg-white/10 transition-all duration-200 text-sm";
@@ -61,10 +56,9 @@ export default function BergabungSection() {
 
   return (
     <section id="bergabung" className="py-24 lg:py-32 bg-black relative overflow-hidden">
-      <div className="absolute inset-0 opacity-30 pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(circle at 50% 50%, rgba(0,212,255,0.08) 0%, transparent 60%)`,
-        }}
+      <div
+        className="absolute inset-0 opacity-30 pointer-events-none"
+        style={{ backgroundImage: "radial-gradient(circle at 50% 50%, rgba(0,212,255,0.08) 0%, transparent 60%)" }}
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,7 +84,6 @@ export default function BergabungSection() {
           </p>
         </motion.div>
 
-        {/* Form tabs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -105,11 +98,7 @@ export default function BergabungSection() {
             <button
               key={tab.id}
               onClick={() => { setActiveForm(tab.id); setFormState({ loading: false, success: false, error: "" }); }}
-              className={`flex-1 py-2.5 px-3 rounded-xl text-sm font-medium transition-all duration-200 ${
-                activeForm === tab.id
-                  ? "bg-gradient-to-r from-cyan-500 to-violet-600 text-white shadow-lg"
-                  : "text-gray-400 hover:text-white"
-              }`}
+              className={"flex-1 py-2.5 px-3 rounded-xl text-sm font-medium transition-all duration-200 " + (activeForm === tab.id ? "bg-gradient-to-r from-cyan-500 to-violet-600 text-white shadow-lg" : "text-gray-400 hover:text-white")}
             >
               {tab.label}
             </button>
@@ -124,7 +113,7 @@ export default function BergabungSection() {
         >
           {formState.success ? (
             <div className="text-center py-8">
-              <div className="text-5xl mb-4">??</div>
+              <div className="text-5xl mb-4">🎉</div>
               <h3 className="text-white font-bold text-xl mb-2">Berhasil!</h3>
               <p className="text-gray-400">Terima kasih! Kami akan menghubungi Anda segera.</p>
               <button
@@ -152,11 +141,7 @@ export default function BergabungSection() {
                     />
                   </div>
                   <p className="text-gray-500 text-xs">Dapatkan update terbaru tentang produk, fitur baru, dan berita Hyperchain langsung di inbox Anda.</p>
-                  <button
-                    type="submit"
-                    disabled={formState.loading}
-                    className="w-full py-3 bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 disabled:opacity-50"
-                  >
+                  <button type="submit" disabled={formState.loading} className="w-full py-3 bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 disabled:opacity-50">
                     {formState.loading ? "Mendaftar..." : "Daftar Newsletter"}
                   </button>
                 </form>
@@ -222,7 +207,7 @@ export default function BergabungSection() {
                   </div>
                   <div>
                     <label htmlFor="project-idea" className={labelClass}>Deskripsi Ide Proyek</label>
-                    <textarea id="project-idea" required rows={4} value={projectForm.project_idea} onChange={(e) => setProjectForm({ ...projectForm, project_idea: e.target.value })} placeholder="Ceritakan ide proyek Anda..." className={`${inputClass} resize-none`} />
+                    <textarea id="project-idea" required rows={4} value={projectForm.project_idea} onChange={(e) => setProjectForm({ ...projectForm, project_idea: e.target.value })} placeholder="Ceritakan ide proyek Anda..." className={inputClass + " resize-none"} />
                   </div>
                   <button type="submit" disabled={formState.loading} className="w-full py-3 bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-bold rounded-xl hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 disabled:opacity-50">
                     {formState.loading ? "Mengirim..." : "Ajukan Proyek"}
