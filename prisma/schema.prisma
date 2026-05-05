@@ -1,0 +1,39 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Subscriber {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  source        String
+  subscribed_at DateTime @default(now())
+
+  @@map("subscribers")
+}
+
+model ProjectApplication {
+  id           String   @id @default(uuid())
+  full_name    String
+  email        String
+  project_idea String
+  category     String
+  status       String   @default("pending")
+  submitted_at DateTime @default(now())
+
+  @@map("project_applications")
+}
+
+model TalentApplication {
+  id            String   @id @default(uuid())
+  full_name     String
+  email         String
+  role          String
+  portfolio_url String?
+  submitted_at  DateTime @default(now())
+
+  @@map("talent_applications")
+}
