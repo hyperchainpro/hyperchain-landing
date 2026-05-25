@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -59,8 +59,6 @@ const APPS = [
     visualBg: "linear-gradient(135deg,#ffaa00,#cc7700)",
   },
 ];
-
-const NAV_LINKS = ["PRODUCTS", "ECOSYSTEM", "TEAM", "JOIN"];
 
 function WavyLines({ color }: { color: string }) {
   const horizontalPaths = [
@@ -146,6 +144,7 @@ export default function HeroSection() {
         height: "100svh",
         minHeight: "600px",
         background: "#000",
+        paddingTop: 0,
       }}
     >
       <AnimatePresence mode="wait">
@@ -187,64 +186,6 @@ export default function HeroSection() {
           zIndex: 10,
         }}
       />
-
-      <nav
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          zIndex: 40,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          padding: "24px 40px",
-        }}
-      >
-        <div
-          style={{
-            border: "2px solid rgba(255,255,255,0.85)",
-            padding: "6px 14px",
-            borderRadius: "4px",
-          }}
-        >
-          <span
-            style={{
-              color: "#fff",
-              fontWeight: 900,
-              fontSize: "1rem",
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-            }}
-          >
-            HYPERCHAIN
-          </span>
-        </div>
-
-        <div style={{ display: "flex", gap: "36px" }}>
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link}
-              href={`#${link.toLowerCase()}`}
-              style={{
-                color: "rgba(255,255,255,0.75)",
-                fontSize: "0.75rem",
-                fontWeight: 700,
-                letterSpacing: "0.14em",
-                textTransform: "uppercase",
-                textDecoration: "none",
-                transition: "color 0.2s",
-              }}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#fff")}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "rgba(255,255,255,0.75)")}
-            >
-              {link}
-            </a>
-          ))}
-        </div>
-
-        <div style={{ width: "140px" }} />
-      </nav>
 
       <motion.div
         style={{
