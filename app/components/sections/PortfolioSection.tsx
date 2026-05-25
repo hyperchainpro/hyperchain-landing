@@ -4,158 +4,102 @@ import { motion, useInView } from "framer-motion";
 
 const PROJECTS = [
   {
-    id: 1,
-    name: "HyperTask",
-    category: "Produktivitas",
-    status: "Beta",
-    statusColor: "bg-green-500/20 text-green-400 border-green-500/30",
-    desc: "Platform manajemen proyek berbasis AI yang membantu tim bekerja lebih cerdas dengan otomatisasi tugas, prediksi deadline, dan kolaborasi real-time.",
+    id: "01", name: "HyperTask", cat: "Productivity", status: "Beta",
+    desc: "AI-powered project management platform helping teams work smarter with task automation, deadline prediction, and real-time collaboration.",
     tech: ["Next.js", "AI/ML", "WebSocket", "PostgreSQL"],
-    gradient: "from-cyan-500/20 to-blue-500/20",
-    border: "border-cyan-500/30",
     metrics: { users: "2.3K", rating: "4.8", tasks: "45K" },
+    color: "#00f5ff",
   },
   {
-    id: 2,
-    name: "HyperPay",
-    category: "Keuangan",
-    status: "Development",
-    statusColor: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30",
-    desc: "Solusi pembayaran digital terintegrasi untuk UMKM Indonesia. Mendukung QRIS, transfer bank, dan manajemen keuangan bisnis dalam satu dashboard.",
+    id: "02", name: "HyperPay", cat: "Finance", status: "Development",
+    desc: "Integrated digital payment solution for Indonesian SMEs. Supports QRIS, bank transfers, and business financial management in one dashboard.",
     tech: ["React Native", "Node.js", "Redis", "Stripe API"],
-    gradient: "from-green-500/20 to-emerald-500/20",
-    border: "border-green-500/30",
     metrics: { users: "1.1K", rating: "4.9", tasks: "12K" },
+    color: "#0066ff",
   },
   {
-    id: 3,
-    name: "HyperLearn",
-    category: "Pendidikan",
-    status: "Alpha",
-    statusColor: "bg-violet-500/20 text-violet-400 border-violet-500/30",
-    desc: "Platform e-learning adaptif yang menyesuaikan kurikulum dengan gaya belajar setiap pengguna menggunakan machine learning dan analitik pembelajaran.",
+    id: "03", name: "HyperLearn", cat: "Education", status: "Alpha",
+    desc: "Adaptive e-learning platform that adjusts curriculum to each user's learning style using machine learning and learning analytics.",
     tech: ["Vue.js", "Python", "TensorFlow", "MongoDB"],
-    gradient: "from-violet-500/20 to-purple-500/20",
-    border: "border-violet-500/30",
     metrics: { users: "890", rating: "4.7", tasks: "8K" },
+    color: "#7c3aed",
   },
   {
-    id: 4,
-    name: "HyperHealth",
-    category: "Kesehatan",
-    status: "Planning",
-    statusColor: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-    desc: "Ekosistem kesehatan digital yang menghubungkan pasien, dokter, dan apotek. Fitur monitoring kesehatan IoT, telemedicine, dan rekam medis digital.",
+    id: "04", name: "HyperHealth", cat: "Healthcare", status: "Planning",
+    desc: "Digital health ecosystem connecting patients, doctors, and pharmacies. IoT health monitoring, telemedicine, and digital medical records.",
     tech: ["React", "FastAPI", "IoT", "FHIR"],
-    gradient: "from-red-500/20 to-rose-500/20",
-    border: "border-red-500/30",
     metrics: { users: "500+", rating: "4.6", tasks: "3K" },
+    color: "#00f5ff",
   },
 ];
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 export default function PortfolioSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="portfolio" className="py-24 lg:py-32 bg-gray-950 relative">
-      <div
-        className="absolute inset-0 opacity-20 pointer-events-none"
-        style={{ backgroundImage: "radial-gradient(circle at 50% 0%, rgba(0,212,255,0.1) 0%, transparent 60%)" }}
-      />
+    <section id="portfolio" className="py-32 lg:py-40 bg-black relative">
+      <div className="section-divider absolute top-0 left-0 right-0" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8 }}
+          className="mb-20"
         >
-          <span className="inline-block text-cyan-400 text-sm font-semibold uppercase tracking-widest mb-4">
-            Portfolio
-          </span>
-          <h2 className="text-4xl lg:text-6xl font-black text-white mb-6">
-            Produk{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
-              Unggulan
-            </span>
+          <p className="text-xs text-cyan-400 uppercase tracking-[0.3em] mb-6">Products</p>
+          <h2 className="text-5xl lg:text-7xl font-black leading-[0.9] tracking-tighter">
+            <span className="gradient-text-white">FLAGSHIP</span>
+            <br />
+            <span className="gradient-text-cyan">PRODUCTS</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Dari konsep hingga produksi, setiap produk Hyperchain dibangun
-            dengan standar kualitas tertinggi dan fokus pada pengalaman pengguna.
-          </p>
         </motion.div>
 
-        <motion.div
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-6"
-        >
-          {PROJECTS.map((project) => (
-            <motion.article
+        <div className="space-y-px bg-white/5">
+          {PROJECTS.map((project, i) => (
+            <motion.div
               key={project.id}
-              variants={itemVariants}
-              className={"relative p-8 rounded-3xl border " + project.border + " bg-gradient-to-br " + project.gradient + " backdrop-blur-sm hover:scale-[1.02] transition-transform duration-300 group"}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: i * 0.1, duration: 0.6 }}
+              className="group bg-black p-8 lg:p-12 hover:bg-white/[0.02] transition-all duration-500"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <span className="text-gray-400 text-xs uppercase tracking-wider">{project.category}</span>
-                  <h3 className="text-white font-black text-2xl mt-1 group-hover:text-cyan-400 transition-colors">
+              <div className="flex flex-col lg:flex-row lg:items-start gap-8">
+                {/* Left */}
+                <div className="lg:w-1/3">
+                  <div className="flex items-center gap-4 mb-4">
+                    <span className="text-xs text-white/20 font-mono">{project.id}</span>
+                    <span className="text-xs text-gray-600 uppercase tracking-wider">{project.cat}</span>
+                    <span className="text-xs px-2 py-0.5 rounded border border-white/10 text-gray-500">{project.status}</span>
+                  </div>
+                  <h3 className="text-3xl font-black text-white group-hover:text-cyan-400 transition-colors duration-300 mb-4">
                     {project.name}
                   </h3>
+                  <div className="w-12 h-px transition-all duration-500 group-hover:w-24" style={{ background: project.color }} />
                 </div>
-                <span className={"px-3 py-1 rounded-full text-xs font-semibold border " + project.statusColor}>
-                  {project.status}
-                </span>
-              </div>
-              <p className="text-gray-300 text-sm leading-relaxed mb-6">{project.desc}</p>
-              <div className="flex flex-wrap gap-2 mb-6">
-                {project.tech.map((t) => (
-                  <span key={t} className="px-3 py-1 rounded-full bg-white/10 text-gray-300 text-xs border border-white/10">
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <div className="grid grid-cols-3 gap-4 pt-4 border-t border-white/10">
-                <div className="text-center">
-                  <div className="text-white font-bold">{project.metrics.users}</div>
-                  <div className="text-gray-500 text-xs">Pengguna</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-white font-bold">&#9733; {project.metrics.rating}</div>
-                  <div className="text-gray-500 text-xs">Rating</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-white font-bold">{project.metrics.tasks}</div>
-                  <div className="text-gray-500 text-xs">Transaksi</div>
-                </div>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.8 }}
-          className="text-center mt-12"
-        >
-          <button className="px-8 py-3 border border-white/20 text-gray-300 rounded-full hover:border-cyan-400/50 hover:text-cyan-400 transition-all duration-300 text-sm">
-            Lihat Semua Produk
-          </button>
-        </motion.div>
+                {/* Right */}
+                <div className="lg:w-2/3">
+                  <p className="text-gray-400 leading-relaxed mb-6">{project.desc}</p>
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tech.map((t) => (
+                      <span key={t} className="px-3 py-1 text-xs text-gray-500 border border-white/5 rounded-lg hover:border-white/10 transition-colors">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="flex gap-8">
+                    <div><div className="text-white font-bold">{project.metrics.users}</div><div className="text-xs text-gray-600 mt-0.5">Users</div></div>
+                    <div><div className="text-white font-bold">{project.metrics.rating}</div><div className="text-xs text-gray-600 mt-0.5">Rating</div></div>
+                    <div><div className="text-white font-bold">{project.metrics.tasks}</div><div className="text-xs text-gray-600 mt-0.5">Transactions</div></div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

@@ -3,117 +3,68 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const PILLARS = [
-  {
-    icon: "🔗",
-    title: "Terintegrasi",
-    desc: "Semua produk terhubung dalam satu ekosistem yang mulus. Data mengalir antar aplikasi tanpa hambatan.",
-  },
-  {
-    icon: "⚡",
-    title: "Bertenaga AI",
-    desc: "Kecerdasan buatan tertanam di setiap produk untuk memberikan pengalaman yang personal dan cerdas.",
-  },
-  {
-    icon: "🛡️",
-    title: "Aman & Terpercaya",
-    desc: "Keamanan enterprise-grade dengan enkripsi end-to-end dan kepatuhan terhadap regulasi data.",
-  },
-  {
-    icon: "🌏",
-    title: "Lokal & Global",
-    desc: "Dibangun untuk Indonesia, dirancang untuk dunia. Memahami kebutuhan lokal dengan standar global.",
-  },
+  { icon: "01", title: "Integrated", desc: "All products connected in one seamless ecosystem. Data flows between apps without friction." },
+  { icon: "02", title: "AI-Powered", desc: "Artificial intelligence embedded in every product for personalized, intelligent experiences." },
+  { icon: "03", title: "Secure", desc: "Enterprise-grade security with end-to-end encryption and full regulatory compliance." },
+  { icon: "04", title: "Local & Global", desc: "Built for Indonesia, designed for the world. Local understanding, global standards." },
 ];
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.15 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-};
 
 export default function TentangSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
 
   return (
-    <section id="tentang" className="py-24 lg:py-32 bg-black relative overflow-hidden">
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-cyan-500/5 rounded-full blur-3xl pointer-events-none" />
+    <section id="tentang" className="py-32 lg:py-40 bg-black relative overflow-hidden">
+      <div className="section-divider absolute top-0 left-0 right-0" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(0,245,255,0.03),transparent)] pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          ref={ref}
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
-          className="text-center mb-16"
-        >
-          <motion.span
-            variants={itemVariants}
-            className="inline-block text-cyan-400 text-sm font-semibold uppercase tracking-widest mb-4"
+      <div className="max-w-6xl mx-auto px-6">
+        <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+          {/* Left */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8 }}
           >
-            Tentang Kami
-          </motion.span>
-          <motion.h2
-            variants={itemVariants}
-            className="text-4xl lg:text-6xl font-black text-white mb-6"
-          >
-            Apa itu{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
-              Hyperchain?
-            </span>
-          </motion.h2>
-          <motion.p
-            variants={itemVariants}
-            className="text-gray-400 text-lg max-w-3xl mx-auto leading-relaxed"
-          >
-            Hyperchain Project adalah ekosistem digital terintegrasi yang menghubungkan
-            berbagai aspek kehidupan digital dari produktivitas kerja, manajemen keuangan,
-            hingga kesehatan dan pendidikan dalam satu platform yang kohesif dan powerful.
-          </motion.p>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.7, delay: 0.3 }}
-          className="relative p-8 lg:p-12 rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-violet-500/5 mb-16 overflow-hidden"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-violet-500/10 rounded-full blur-3xl" />
-          <div className="relative">
-            <p className="text-2xl lg:text-3xl font-light text-white leading-relaxed text-center">
-              Kami percaya bahwa teknologi terbaik adalah yang{" "}
-              <span className="text-cyan-400 font-semibold">tidak terlihat</span> --
-              yang bekerja di balik layar untuk membuat hidup Anda lebih mudah,
-              lebih produktif, dan lebih{" "}
-              <span className="text-violet-400 font-semibold">bermakna</span>.
+            <p className="text-xs text-cyan-400 uppercase tracking-[0.3em] mb-6">About Hyperchain</p>
+            <h2 className="text-5xl lg:text-7xl font-black leading-[0.9] tracking-tighter mb-8">
+              <span className="gradient-text-white">ONE</span>
+              <br />
+              <span className="gradient-text-cyan">ECOSYSTEM</span>
+              <br />
+              <span className="gradient-text-white">INFINITE</span>
+              <br />
+              <span className="text-white/20">POSSIBILITIES</span>
+            </h2>
+            <p className="text-gray-400 text-lg leading-relaxed max-w-md">
+              Hyperchain Project is an integrated digital ecosystem connecting every aspect of digital life -- from work productivity and financial management to health and education -- in one cohesive, powerful platform.
             </p>
-          </div>
-        </motion.div>
+          </motion.div>
 
-        <motion.div
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {PILLARS.map((pillar) => (
-            <motion.div
-              key={pillar.title}
-              variants={itemVariants}
-              className="p-6 rounded-2xl border border-white/10 bg-white/5 hover:border-cyan-500/40 hover:bg-cyan-500/5 transition-all duration-300 group"
-            >
-              <div className="text-4xl mb-4">{pillar.icon}</div>
-              <h3 className="text-white font-bold text-lg mb-2 group-hover:text-cyan-400 transition-colors">
-                {pillar.title}
-              </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{pillar.desc}</p>
-            </motion.div>
-          ))}
-        </motion.div>
+          {/* Right - pillars */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="space-y-px"
+          >
+            {PILLARS.map((pillar, i) => (
+              <motion.div
+                key={pillar.title}
+                initial={{ opacity: 0, y: 20 }}
+                animate={inView ? { opacity: 1, y: 0 } : {}}
+                transition={{ delay: 0.3 + i * 0.1, duration: 0.6 }}
+                className="group flex gap-6 p-6 border-b border-white/5 hover:bg-white/[0.02] transition-all duration-300 cursor-default"
+              >
+                <span className="text-xs text-cyan-400/40 font-mono mt-1 flex-shrink-0">{pillar.icon}</span>
+                <div>
+                  <h3 className="text-white font-bold mb-2 group-hover:text-cyan-400 transition-colors">{pillar.title}</h3>
+                  <p className="text-gray-500 text-sm leading-relaxed">{pillar.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

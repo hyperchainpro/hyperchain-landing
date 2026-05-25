@@ -1,14 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 
 const NAV_LINKS = [
-  { href: "#tentang", label: "Tentang" },
-  { href: "#ekosistem", label: "Ekosistem" },
-  { href: "#portfolio", label: "Portfolio" },
-  { href: "#tim", label: "Tim" },
-  { href: "#bergabung", label: "Bergabung" },
+  { href: "#tentang", label: "About" },
+  { href: "#ekosistem", label: "Ecosystem" },
+  { href: "#portfolio", label: "Products" },
+  { href: "#tim", label: "Team" },
+  { href: "#bergabung", label: "Join" },
 ];
 
 export default function Header() {
@@ -16,108 +15,100 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  const handleNav = (href: string) => {
     setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(href)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <motion.header
-      initial={{ y: -80, opacity: 0 }}
+      initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-black/80 backdrop-blur-xl border-b border-cyan-500/20"
-          : "bg-transparent"
-      }`}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-6 px-4"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="relative w-8 h-8">
-              <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-violet-600 rounded-lg rotate-45 group-hover:rotate-90 transition-transform duration-300" />
-              <div className="absolute inset-1 bg-black rounded-md rotate-45" />
-              <span className="absolute inset-0 flex items-center justify-center text-cyan-400 font-bold text-sm">H</span>
+      <div className={`flex items-center justify-between gap-8 px-6 py-3 rounded-2xl border transition-all duration-500 max-w-5xl w-full ${
+        scrolled
+          ? "bg-black/80 backdrop-blur-2xl border-white/10 shadow-2xl shadow-black/50"
+          : "bg-transparent border-transparent"
+      }`}>
+        {/* Logo */}
+        <button onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="flex items-center gap-3 group">
+          <div className="relative w-8 h-8 flex-shrink-0">
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-lg opacity-80 group-hover:opacity-100 transition-opacity" />
+            <div className="absolute inset-[2px] bg-black rounded-md flex items-center justify-center">
+              <span className="text-cyan-400 font-black text-xs">HC</span>
             </div>
-            <span className="text-white font-bold text-xl tracking-tight">
-              HYPER<span className="text-cyan-400">CHAIN</span>
-            </span>
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8" aria-label="Main navigation">
-            {NAV_LINKS.map((link) => (
-              <button
-                key={link.href}
-                onClick={() => handleNavClick(link.href)}
-                className="text-gray-300 hover:text-cyan-400 text-sm font-medium transition-colors duration-200 relative group"
-              >
-                {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-px bg-cyan-400 group-hover:w-full transition-all duration-300" />
-              </button>
-            ))}
-          </nav>
-
-          {/* CTA */}
-          <div className="hidden lg:flex items-center gap-4">
-            <button
-              onClick={() => handleNavClick("#bergabung")}
-              className="px-5 py-2 bg-gradient-to-r from-cyan-500 to-violet-600 text-white text-sm font-semibold rounded-full hover:shadow-lg hover:shadow-cyan-500/30 transition-all duration-300 hover:scale-105"
-            >
-              Daftar Sekarang
-            </button>
           </div>
+          <span className="text-white font-bold text-lg tracking-tight hidden sm:block">
+            HYPER<span className="text-cyan-400">CHAIN</span>
+          </span>
+        </button>
 
-          {/* Mobile Menu Button */}
+        {/* Desktop Nav */}
+        <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+          {NAV_LINKS.map((link) => (
+            <button
+              key={link.href}
+              onClick={() => handleNav(link.href)}
+              className="px-4 py-2 text-sm text-gray-400 hover:text-white rounded-xl hover:bg-white/5 transition-all duration-200"
+            >
+              {link.label}
+            </button>
+          ))}
+        </nav>
+
+        {/* CTA */}
+        <div className="hidden lg:flex items-center gap-3">
           <button
-            className="lg:hidden text-white p-2"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Tutup menu" : "Buka menu"}
-            aria-expanded={menuOpen}
+            onClick={() => handleNav("#bergabung")}
+            className="relative px-5 py-2 text-sm font-semibold text-black bg-white rounded-xl hover:bg-cyan-400 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-400/30"
           >
-            <div className="w-6 h-5 flex flex-col justify-between">
-              <span className={`block h-0.5 bg-white transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
-              <span className={`block h-0.5 bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
-              <span className={`block h-0.5 bg-white transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
-            </div>
+            Get Early Access
           </button>
         </div>
+
+        {/* Mobile toggle */}
+        <button
+          className="lg:hidden w-8 h-8 flex flex-col items-center justify-center gap-1.5"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
+        >
+          <span className={`block w-5 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "opacity-0" : ""}`} />
+          <span className={`block w-5 h-0.5 bg-white transition-all duration-300 ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+        </button>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile menu */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-black/95 backdrop-blur-xl border-t border-cyan-500/20"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="absolute top-20 left-4 right-4 bg-black/95 backdrop-blur-2xl border border-white/10 rounded-2xl p-4"
           >
-            <nav className="px-4 py-6 flex flex-col gap-4" aria-label="Mobile navigation">
-              {NAV_LINKS.map((link) => (
-                <button
-                  key={link.href}
-                  onClick={() => handleNavClick(link.href)}
-                  className="text-gray-300 hover:text-cyan-400 text-base font-medium transition-colors text-left py-2 border-b border-white/5"
-                >
-                  {link.label}
-                </button>
-              ))}
+            {NAV_LINKS.map((link) => (
               <button
-                onClick={() => handleNavClick("#bergabung")}
-                className="mt-2 px-5 py-3 bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-semibold rounded-full"
+                key={link.href}
+                onClick={() => handleNav(link.href)}
+                className="block w-full text-left px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all text-sm"
               >
-                Daftar Sekarang
+                {link.label}
               </button>
-            </nav>
+            ))}
+            <button
+              onClick={() => handleNav("#bergabung")}
+              className="mt-2 w-full py-3 bg-white text-black font-semibold rounded-xl text-sm hover:bg-cyan-400 transition-all"
+            >
+              Get Early Access
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,0 +1,37 @@
+{
+  "routes": [
+    {
+      "routePath": "/api/debug",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/debug.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/project",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/project.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/subscribe",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/subscribe.js:onRequestPost"
+      ]
+    },
+    {
+      "routePath": "/api/talent",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/talent.js:onRequestPost"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}

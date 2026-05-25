@@ -1,71 +1,64 @@
 "use client";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { BackgroundBeams } from "@/components/ui/background-beams";
 
 export default function CTASection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section className="py-24 lg:py-32 bg-gradient-to-b from-gray-950 to-black relative overflow-hidden">
-      {/* Animated background */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-gradient-to-r from-cyan-500/10 via-violet-500/10 to-cyan-500/10 rounded-full blur-3xl animate-pulse" />
-      </div>
+    <section className="relative py-40 bg-black overflow-hidden">
+      <div className="section-divider absolute top-0 left-0 right-0" />
+      <BackgroundBeams className="opacity-40" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_50%_50%,rgba(0,245,255,0.05),transparent)] pointer-events-none" />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative">
+      <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 40 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7 }}
+          transition={{ duration: 1 }}
         >
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-cyan-500/40 bg-cyan-500/10 text-cyan-400 text-sm font-medium mb-8">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            Early Access Terbuka
-          </span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/20 bg-cyan-500/5 mb-10">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            <span className="text-cyan-400 text-xs font-medium tracking-widest uppercase">Early Access Open</span>
+          </div>
 
-          <h2 className="text-4xl lg:text-7xl font-black text-white mb-6 leading-tight">
-            Siap Bergabung dengan{" "}
-            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-violet-500 bg-clip-text text-transparent">
-              Masa Depan?
-            </span>
+          <h2 className="font-black leading-[0.9] tracking-tighter mb-8" style={{ fontSize: "clamp(3rem,8vw,7rem)" }}>
+            <span className="gradient-text-white">READY TO</span>
+            <br />
+            <span className="gradient-text-cyan">JOIN THE</span>
+            <br />
+            <span className="gradient-text-white">FUTURE?</span>
           </h2>
 
-          <p className="text-gray-400 text-xl mb-12 max-w-2xl mx-auto leading-relaxed">
-            Jadilah bagian dari 1000 early adopter pertama dan dapatkan akses
-            eksklusif ke semua produk Hyperchain sebelum diluncurkan ke publik.
+          <p className="text-gray-400 text-lg mb-12 max-w-xl mx-auto leading-relaxed">
+            Be among the first 1000 early adopters and get exclusive access to all Hyperchain products before public launch.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
             <button
               onClick={() => document.querySelector("#bergabung")?.scrollIntoView({ behavior: "smooth" })}
-              className="px-10 py-4 bg-gradient-to-r from-cyan-500 to-violet-600 text-white font-black rounded-full text-lg hover:shadow-2xl hover:shadow-cyan-500/40 transition-all duration-300 hover:scale-105"
+              className="px-10 py-4 bg-white text-black font-black rounded-2xl text-lg hover:bg-cyan-400 transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-400/30 hover:scale-105"
             >
-              Daftar Early Access
+              Get Early Access
             </button>
             <button
               onClick={() => document.querySelector("#portfolio")?.scrollIntoView({ behavior: "smooth" })}
-              className="px-10 py-4 border border-white/30 text-white font-semibold rounded-full text-lg hover:border-cyan-400/60 hover:text-cyan-400 transition-all duration-300"
+              className="px-10 py-4 border border-white/15 text-white/70 font-medium rounded-2xl text-lg hover:border-white/40 hover:text-white transition-all duration-300"
             >
-              Lihat Demo
+              View Demo
             </button>
           </div>
 
-          {/* Social proof */}
-          <div className="flex items-center justify-center gap-6 text-gray-500 text-sm">
-            <div className="flex items-center gap-2">
-              <span className="text-green-400">?</span>
-              <span>Gratis untuk early adopter</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-green-400">?</span>
-              <span>Tanpa kartu kredit</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-green-400">?</span>
-              <span>Bisa cancel kapan saja</span>
-            </div>
+          <div className="flex items-center justify-center gap-8 text-gray-600 text-sm flex-wrap">
+            {["Free for early adopters", "No credit card", "Cancel anytime"].map((item) => (
+              <div key={item} className="flex items-center gap-2">
+                <span className="text-cyan-400">+</span>
+                <span>{item}</span>
+              </div>
+            ))}
           </div>
         </motion.div>
       </div>

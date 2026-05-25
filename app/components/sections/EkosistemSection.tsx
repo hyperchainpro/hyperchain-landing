@@ -3,108 +3,78 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
 const SECTORS = [
-  { id: 1, icon: "?", name: "HyperTask", category: "Produktivitas", color: "from-cyan-500 to-blue-600", desc: "Manajemen tugas & proyek berbasis AI untuk tim modern" },
-  { id: 2, icon: "??", name: "HyperPay", category: "Keuangan", color: "from-green-500 to-emerald-600", desc: "Dompet digital & pembayaran terintegrasi untuk UMKM" },
-  { id: 3, icon: "??", name: "HyperLearn", category: "Pendidikan", color: "from-violet-500 to-purple-600", desc: "Platform pembelajaran adaptif dengan kurikulum AI" },
-  { id: 4, icon: "??", name: "HyperHealth", category: "Kesehatan", color: "from-red-500 to-rose-600", desc: "Monitoring kesehatan personal & telemedicine" },
-  { id: 5, icon: "??", name: "HyperStore", category: "E-Commerce", color: "from-orange-500 to-amber-600", desc: "Marketplace terintegrasi dengan logistik cerdas" },
-  { id: 6, icon: "??", name: "HyperConnect", category: "Networking", color: "from-blue-500 to-indigo-600", desc: "Platform networking profesional untuk ekosistem startup" },
-  { id: 7, icon: "??", name: "HyperAnalytics", category: "Data & BI", color: "from-teal-500 to-cyan-600", desc: "Business intelligence & analitik data real-time" },
-  { id: 8, icon: "??", name: "HyperHome", category: "Properti", color: "from-yellow-500 to-orange-600", desc: "Platform properti cerdas dengan virtual tour 3D" },
+  { id: "01", name: "HyperTask", cat: "Productivity", desc: "AI-powered project management for modern teams", color: "#00f5ff" },
+  { id: "02", name: "HyperPay", cat: "Finance", desc: "Integrated digital payments for Indonesian SMEs", color: "#0066ff" },
+  { id: "03", name: "HyperLearn", cat: "Education", desc: "Adaptive learning platform with AI curriculum", color: "#7c3aed" },
+  { id: "04", name: "HyperHealth", cat: "Healthcare", desc: "Digital health ecosystem connecting patients & doctors", color: "#00f5ff" },
+  { id: "05", name: "HyperStore", cat: "E-Commerce", desc: "Marketplace with intelligent logistics integration", color: "#0066ff" },
+  { id: "06", name: "HyperConnect", cat: "Networking", desc: "Professional networking for startup ecosystem", color: "#7c3aed" },
+  { id: "07", name: "HyperAnalytics", cat: "Data & BI", desc: "Real-time business intelligence & data analytics", color: "#00f5ff" },
+  { id: "08", name: "HyperHome", cat: "Property", desc: "Smart property platform with 3D virtual tours", color: "#0066ff" },
 ];
-
-const containerVariants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5 } },
-};
 
 export default function EkosistemSection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="ekosistem" className="py-24 lg:py-32 bg-gradient-to-b from-black to-gray-950 relative">
-      <div className="absolute inset-0 opacity-30 pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(circle at 20% 50%, rgba(0,212,255,0.08) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(124,58,237,0.08) 0%, transparent 50%)`,
-        }}
-      />
+    <section id="ekosistem" className="py-32 lg:py-40 bg-black relative">
+      <div className="section-divider absolute top-0 left-0 right-0" />
+      <div className="absolute inset-0 bg-grid-small opacity-30 pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8 }}
+          className="mb-20"
         >
-          <span className="inline-block text-cyan-400 text-sm font-semibold uppercase tracking-widest mb-4">
-            Ekosistem
-          </span>
-          <h2 className="text-4xl lg:text-6xl font-black text-white mb-6">
-            8 Sektor,{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
-              Satu Visi
-            </span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Setiap produk dirancang untuk bekerja secara mandiri sekaligus
-            terintegrasi sempurna dengan seluruh ekosistem Hyperchain.
-          </p>
+          <p className="text-xs text-cyan-400 uppercase tracking-[0.3em] mb-6">Ecosystem</p>
+          <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <h2 className="text-5xl lg:text-7xl font-black leading-[0.9] tracking-tighter">
+              <span className="gradient-text-white">8 SECTORS</span>
+              <br />
+              <span className="gradient-text-cyan">ONE VISION</span>
+            </h2>
+            <p className="text-gray-500 max-w-xs text-sm leading-relaxed">
+              Each product designed to work independently while integrating perfectly with the entire Hyperchain ecosystem.
+            </p>
+          </div>
         </motion.div>
 
-        <motion.div
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={containerVariants}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
-        >
-          {SECTORS.map((sector) => (
+        {/* Products grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/5">
+          {SECTORS.map((sector, i) => (
             <motion.div
               key={sector.id}
-              variants={itemVariants}
-              className="group relative p-6 rounded-2xl border border-white/10 bg-gray-900/50 hover:border-white/30 transition-all duration-300 cursor-pointer overflow-hidden"
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ delay: i * 0.06, duration: 0.5 }}
+              className="group bg-black p-8 hover:bg-white/[0.03] transition-all duration-300 cursor-default"
             >
-              {/* Hover gradient */}
-              <div className={`absolute inset-0 bg-gradient-to-br ${sector.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-
-              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-br ${sector.color} text-2xl mb-4`}>
-                {sector.icon}
+              <div className="flex items-start justify-between mb-6">
+                <span className="text-xs text-white/20 font-mono">{sector.id}</span>
+                <span className="text-xs text-gray-600 uppercase tracking-wider">{sector.cat}</span>
               </div>
-
-              <div className="text-xs text-gray-500 uppercase tracking-wider mb-1">
-                {sector.category}
-              </div>
-              <h3 className="text-white font-bold text-lg mb-2 group-hover:text-cyan-400 transition-colors">
+              <h3 className="text-white font-bold text-lg mb-3 group-hover:text-cyan-400 transition-colors duration-300">
                 {sector.name}
               </h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{sector.desc}</p>
-
-              <div className="mt-4 flex items-center gap-1 text-cyan-400 text-sm opacity-0 group-hover:opacity-100 transition-opacity">
-                <span>Pelajari</span>
-                <span>?</span>
-              </div>
+              <p className="text-gray-600 text-sm leading-relaxed">{sector.desc}</p>
+              <div className="mt-6 w-8 h-px transition-all duration-300 group-hover:w-full" style={{ background: sector.color }} />
             </motion.div>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Center connection visual */}
+        {/* Bottom note */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ delay: 0.8, duration: 0.6 }}
-          className="mt-16 text-center"
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ delay: 0.8 }}
+          className="mt-12 flex items-center gap-3 text-gray-600 text-sm"
         >
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full border border-cyan-500/30 bg-cyan-500/5 text-cyan-400">
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            <span className="text-sm font-medium">Semua terhubung melalui Hyperchain Core API</span>
-            <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          </div>
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse flex-shrink-0" />
+          All connected through Hyperchain Core API
         </motion.div>
       </div>
     </section>

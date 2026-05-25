@@ -2,37 +2,12 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
-const ROADMAP = [
-  {
-    quarter: "Q1 2025",
-    title: "Fondasi",
-    status: "completed",
-    items: ["Inisialisasi Hyperchain Project", "Riset pasar & validasi ide", "Pembentukan tim inti", "Arsitektur sistem dirancang"],
-  },
-  {
-    quarter: "Q2 2025",
-    title: "Pengembangan",
-    status: "completed",
-    items: ["HyperTask Beta Launch", "HyperPay Development dimulai", "Landing page & branding", "Seed funding round"],
-  },
-  {
-    quarter: "Q3 2025",
-    title: "Ekspansi",
-    status: "active",
-    items: ["HyperPay Beta Launch", "HyperLearn Alpha", "Partnership strategis", "Ekspansi tim ke 20 orang"],
-  },
-  {
-    quarter: "Q4 2025",
-    title: "Skalabilitas",
-    status: "upcoming",
-    items: ["HyperHealth Development", "Series A funding", "Ekspansi ke 3 kota", "50K pengguna aktif"],
-  },
-  {
-    quarter: "Q1 2026",
-    title: "Dominasi",
-    status: "upcoming",
-    items: ["8 produk live", "100K pengguna", "Ekspansi regional ASEAN", "IPO preparation"],
-  },
+const PHASES = [
+  { q: "Q1 2025", title: "Foundation", status: "done", items: ["Project initialization", "Market research & validation", "Core team formation", "System architecture design"] },
+  { q: "Q2 2025", title: "Development", status: "done", items: ["HyperTask Beta Launch", "HyperPay development starts", "Landing page & branding", "Seed funding round"] },
+  { q: "Q3 2025", title: "Expansion", status: "active", items: ["HyperPay Beta Launch", "HyperLearn Alpha", "Strategic partnerships", "Team expansion to 20"] },
+  { q: "Q4 2025", title: "Scale", status: "upcoming", items: ["HyperHealth development", "Series A funding", "Expand to 3 cities", "50K active users"] },
+  { q: "Q1 2026", title: "Domination", status: "upcoming", items: ["8 products live", "100K users", "ASEAN regional expansion", "IPO preparation"] },
 ];
 
 export default function RoadmapSection() {
@@ -40,75 +15,63 @@ export default function RoadmapSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="roadmap" className="py-24 lg:py-32 bg-black relative overflow-hidden">
-      <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-cyan-500/30 to-transparent pointer-events-none hidden lg:block" />
+    <section id="roadmap" className="py-32 lg:py-40 bg-black relative">
+      <div className="section-divider absolute top-0 left-0 right-0" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8 }}
+          className="mb-20"
         >
-          <span className="inline-block text-cyan-400 text-sm font-semibold uppercase tracking-widest mb-4">
-            Roadmap
-          </span>
-          <h2 className="text-4xl lg:text-6xl font-black text-white mb-6">
-            Perjalanan{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
-              Hyperchain
-            </span>
+          <p className="text-xs text-cyan-400 uppercase tracking-[0.3em] mb-6">Roadmap</p>
+          <h2 className="text-5xl lg:text-7xl font-black leading-[0.9] tracking-tighter">
+            <span className="gradient-text-white">THE</span>
+            <br />
+            <span className="gradient-text-cyan">JOURNEY</span>
           </h2>
         </motion.div>
 
-        <div className="space-y-8">
-          {ROADMAP.map((phase, i) => (
-            <motion.div
-              key={phase.quarter}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-              animate={inView ? { opacity: 1, x: 0 } : {}}
-              transition={{ delay: i * 0.15, duration: 0.6 }}
-              className={`flex gap-6 ${i % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"}`}
-            >
-              <div className="flex-1 p-6 rounded-2xl border border-white/10 bg-gray-900/50 hover:border-cyan-500/30 transition-all duration-300">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className={`px-3 py-1 rounded-full text-xs font-bold border ${
-                    phase.status === "completed"
-                      ? "bg-green-500/20 text-green-400 border-green-500/30"
-                      : phase.status === "active"
-                      ? "bg-cyan-500/20 text-cyan-400 border-cyan-500/30 animate-pulse"
-                      : "bg-gray-500/20 text-gray-400 border-gray-500/30"
-                  }`}>
-                    {phase.status === "completed" ? "? Selesai" : phase.status === "active" ? "? Aktif" : "? Mendatang"}
-                  </span>
-                  <span className="text-gray-400 text-sm">{phase.quarter}</span>
+        <div className="relative">
+          {/* Timeline line */}
+          <div className="absolute left-0 top-0 bottom-0 w-px bg-white/5 hidden lg:block" />
+
+          <div className="space-y-px bg-white/5">
+            {PHASES.map((phase, i) => (
+              <motion.div
+                key={phase.q}
+                initial={{ opacity: 0, x: -20 }}
+                animate={inView ? { opacity: 1, x: 0 } : {}}
+                transition={{ delay: i * 0.1, duration: 0.6 }}
+                className="group bg-black p-8 lg:p-10 hover:bg-white/[0.02] transition-all duration-300"
+              >
+                <div className="flex flex-col lg:flex-row gap-8">
+                  <div className="lg:w-48 flex-shrink-0">
+                    <div className="text-xs text-gray-600 mb-2">{phase.q}</div>
+                    <div className="text-white font-bold text-lg">{phase.title}</div>
+                    <div className={`mt-3 inline-flex items-center gap-1.5 text-xs px-2.5 py-1 rounded-full border ${
+                      phase.status === "done" ? "border-green-500/20 text-green-400 bg-green-500/5" :
+                      phase.status === "active" ? "border-cyan-500/20 text-cyan-400 bg-cyan-500/5" :
+                      "border-white/10 text-gray-600"
+                    }`}>
+                      <span className={`w-1 h-1 rounded-full ${phase.status === "done" ? "bg-green-400" : phase.status === "active" ? "bg-cyan-400 animate-pulse" : "bg-gray-600"}`} />
+                      {phase.status === "done" ? "Completed" : phase.status === "active" ? "In Progress" : "Upcoming"}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-3 flex-1">
+                    {phase.items.map((item) => (
+                      <div key={item} className="flex items-center gap-2 text-sm text-gray-500">
+                        <span className={`w-1 h-1 rounded-full flex-shrink-0 ${phase.status === "done" ? "bg-green-400" : phase.status === "active" ? "bg-cyan-400" : "bg-gray-700"}`} />
+                        {item}
+                      </div>
+                    ))}
+                  </div>
                 </div>
-                <h3 className="text-white font-bold text-xl mb-4">{phase.title}</h3>
-                <ul className="space-y-2">
-                  {phase.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-gray-400 text-sm">
-                      <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${
-                        phase.status === "completed" ? "bg-green-400" :
-                        phase.status === "active" ? "bg-cyan-400" : "bg-gray-600"
-                      }`} />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="hidden lg:flex items-center justify-center w-12 flex-shrink-0">
-                <div className={`w-4 h-4 rounded-full border-2 ${
-                  phase.status === "completed"
-                    ? "bg-green-400 border-green-400"
-                    : phase.status === "active"
-                    ? "bg-cyan-400 border-cyan-400 shadow-lg shadow-cyan-400/50"
-                    : "bg-gray-800 border-gray-600"
-                }`} />
-              </div>
-              <div className="flex-1 hidden lg:block" />
-            </motion.div>
-          ))}
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

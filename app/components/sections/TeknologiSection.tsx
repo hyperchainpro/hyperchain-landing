@@ -2,13 +2,13 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 
-const TECH_STACK = [
-  { category: "Frontend", items: ["Next.js 15", "React 19", "TypeScript", "Tailwind CSS", "Framer Motion"] },
-  { category: "3D & Animasi", items: ["Three.js", "React Three Fiber", "Drei", "GSAP", "ScrollTrigger"] },
-  { category: "Backend", items: ["Node.js", "FastAPI", "GraphQL", "REST API", "WebSocket"] },
-  { category: "Database", items: ["Neon PostgreSQL", "Redis", "MongoDB", "Prisma ORM", "PgBouncer"] },
-  { category: "Infrastructure", items: ["Cloudflare Pages", "Cloudflare CDN", "GitHub Actions", "Docker", "Kubernetes"] },
-  { category: "AI/ML", items: ["OpenAI API", "TensorFlow", "Python", "Scikit-learn", "Hugging Face"] },
+const STACK = [
+  { cat: "Frontend", items: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "Framer Motion"] },
+  { cat: "3D & Animation", items: ["Three.js", "React Three Fiber", "Drei", "GSAP", "ScrollTrigger"] },
+  { cat: "Backend", items: ["Node.js", "FastAPI", "GraphQL", "REST API", "WebSocket"] },
+  { cat: "Database", items: ["Neon PostgreSQL", "Redis", "MongoDB", "Prisma ORM", "PgBouncer"] },
+  { cat: "Infrastructure", items: ["Cloudflare Pages", "Cloudflare CDN", "GitHub Actions", "Docker", "Kubernetes"] },
+  { cat: "AI/ML", items: ["OpenAI API", "TensorFlow", "Python", "Scikit-learn", "Hugging Face"] },
 ];
 
 export default function TeknologiSection() {
@@ -16,48 +16,39 @@ export default function TeknologiSection() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="teknologi" className="py-24 lg:py-32 bg-gray-950 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="teknologi" className="py-32 lg:py-40 bg-black relative">
+      <div className="section-divider absolute top-0 left-0 right-0" />
+      <div className="absolute inset-0 bg-grid-small opacity-20 pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.8 }}
+          className="mb-20"
         >
-          <span className="inline-block text-cyan-400 text-sm font-semibold uppercase tracking-widest mb-4">
-            Teknologi
-          </span>
-          <h2 className="text-4xl lg:text-6xl font-black text-white mb-6">
-            Stack{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-violet-500 bg-clip-text text-transparent">
-              Terdepan
-            </span>
+          <p className="text-xs text-cyan-400 uppercase tracking-[0.3em] mb-6">Technology</p>
+          <h2 className="text-5xl lg:text-7xl font-black leading-[0.9] tracking-tighter">
+            <span className="gradient-text-white">CUTTING-EDGE</span>
+            <br />
+            <span className="gradient-text-cyan">STACK</span>
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Dibangun dengan teknologi terbaik yang tersedia, dipilih berdasarkan
-            performa, skalabilitas, dan developer experience.
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {TECH_STACK.map((stack, i) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
+          {STACK.map((s, i) => (
             <motion.div
-              key={stack.category}
-              initial={{ opacity: 0, y: 30 }}
+              key={s.cat}
+              initial={{ opacity: 0, y: 20 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ delay: i * 0.1, duration: 0.5 }}
-              className="p-6 rounded-2xl border border-white/10 bg-gray-900/50 hover:border-cyan-500/30 transition-all duration-300"
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              className="group bg-black p-8 hover:bg-white/[0.02] transition-all duration-300"
             >
-              <h3 className="text-cyan-400 font-bold text-sm uppercase tracking-wider mb-4">
-                {stack.category}
-              </h3>
+              <h3 className="text-xs text-cyan-400 uppercase tracking-widest mb-6">{s.cat}</h3>
               <div className="flex flex-wrap gap-2">
-                {stack.items.map((item) => (
-                  <span
-                    key={item}
-                    className="px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-gray-300 text-sm hover:border-cyan-500/30 hover:text-cyan-400 transition-colors cursor-default"
-                  >
+                {s.items.map((item) => (
+                  <span key={item} className="px-3 py-1.5 text-xs text-gray-500 border border-white/5 rounded-lg hover:border-white/10 hover:text-gray-300 transition-all cursor-default">
                     {item}
                   </span>
                 ))}
@@ -66,31 +57,32 @@ export default function TeknologiSection() {
           ))}
         </div>
 
-        {/* Architecture diagram */}
+        {/* Architecture */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.7, duration: 0.6 }}
-          className="mt-12 p-8 rounded-3xl border border-cyan-500/20 bg-gradient-to-br from-cyan-500/5 to-violet-500/5"
+          transition={{ delay: 0.6, duration: 0.6 }}
+          className="mt-px bg-white/5"
         >
-          <h3 className="text-white font-bold text-xl mb-6 text-center">Arsitektur Sistem</h3>
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-4 text-sm">
-            {[
-              { label: "User Browser", icon: "??" },
-              { label: "?", icon: "" },
-              { label: "Cloudflare CDN", icon: "??" },
-              { label: "?", icon: "" },
-              { label: "Next.js Static", icon: "?" },
-              { label: "?", icon: "" },
-              { label: "Edge Functions", icon: "??" },
-              { label: "?", icon: "" },
-              { label: "Neon DB", icon: "???" },
-            ].map((item, i) => (
-              <div key={i} className={item.icon ? "flex items-center gap-2 px-4 py-2 rounded-xl border border-white/10 bg-white/5 text-gray-300" : "text-cyan-400 font-bold text-lg"}>
-                {item.icon && <span>{item.icon}</span>}
-                <span>{item.label}</span>
-              </div>
-            ))}
+          <div className="bg-black p-8 lg:p-12">
+            <h3 className="text-xs text-gray-600 uppercase tracking-widest mb-8">System Architecture</h3>
+            <div className="flex flex-wrap items-center gap-3 text-sm">
+              {[
+                { label: "Browser", icon: "🌐" },
+                { label: "Cloudflare CDN", icon: "☁️" },
+                { label: "Next.js Static", icon: "⚡" },
+                { label: "Edge Functions", icon: "🔧" },
+                { label: "Neon DB", icon: "🗄️" },
+              ].map((item, i, arr) => (
+                <div key={i} className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 px-4 py-2 border border-white/5 rounded-xl text-gray-400 hover:border-white/10 transition-colors">
+                    <span>{item.icon}</span>
+                    <span className="text-xs">{item.label}</span>
+                  </div>
+                  {i < arr.length - 1 && <span className="text-white/10 text-xs">--&gt;</span>}
+                </div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>
