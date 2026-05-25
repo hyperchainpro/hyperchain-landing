@@ -1,29 +1,31 @@
-﻿"use client";
+"use client";
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const APPS = [
   {
     id: 1,
-    name: "HYPERTASK",
+    name: "HYP CONVERT",
     category: "PRODUCTIVITY",
     badge: "HOT",
-    desc: "AI-POWERED PROJECT MANAGEMENT FOR MODERN TEAMS ON HYPERCHAIN",
+    desc: "SMART FILE CONVERTER & PRODUCTIVITY TOOLS FOR HYPERCHAIN ECOSYSTEM",
     color: "#ff4500",
     bgColor: "#1a0800",
     waveColor: "#cc3300",
     visualBg: "linear-gradient(135deg,#ff4500,#cc2200)",
+    link: "",
   },
   {
     id: 2,
-    name: "HYPERPAY",
+    name: "TRADIX",
     category: "FINANCE",
     badge: "HOT",
-    desc: "INTEGRATED DIGITAL PAYMENTS FOR INDONESIAN SMES ON HYPERCHAIN",
+    desc: "STOCK INTELLIGENCE PLATFORM - SINYAL TRADING & ANALISIS REAL-TIME",
     color: "#00ff88",
     bgColor: "#001a0d",
     waveColor: "#009944",
     visualBg: "linear-gradient(135deg,#00cc66,#006633)",
+    link: "https://tradix-app.pages.dev/",
   },
   {
     id: 3,
@@ -446,7 +448,7 @@ export default function HeroSection() {
 
               <button
                 onClick={() =>
-                  document.querySelector("#bergabung")?.scrollIntoView({ behavior: "smooth" })
+                  (() => { const l = (APPS[activeIdx] as any).link; if (l) window.open(l, "_blank"); else document.querySelector("#bergabung")?.scrollIntoView({ behavior: "smooth" }); })()
                 }
                 style={{
                   padding: "12px 32px",
